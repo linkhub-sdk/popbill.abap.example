@@ -1,49 +1,50 @@
 ﻿*&---------------------------------------------------------------------*
-*& Report  ZPB_EX_CB_CANCELISSUE
+*& Report  ZPB_EX_CB_GETMAILURL
 *&
 *&---------------------------------------------------------------------*
 *&
-*& 현금영수증 발행취소. 국세청 전송전까지 가능.
+*& 발행시 전송된 메일의 링크를 반환.
 *&
 *&---------------------------------------------------------------------*
 
-REPORT  ZPB_EX_CB_CANCELISSUE.
+REPORT  ZPB_EX_CB_GETMAILURL.
 
-DATA: lo_popbill_cashbill TYPE REF TO ZPOPBILL_CASHBILL.
 
-CREATE OBJECT lo_popbill_cashbill
+DATA: lo_popbill_hometax TYPE REF TO ZPOPBILL_CASHBILL.
+DATA: lv_inuse type boolean.
+
+
+CREATE OBJECT lo_popbill_hometax
   EXPORTING
     p_linkid    = 'TESTER'
     p_secretKey = 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I='.
 
-* 테스트베드 연결 여부.
-lo_popbill_cashbill->is_TEST = ABAP_TRUE.
+lo_popbill_hometax->is_TEST = ABAP_TRUE.
 
 DATA:
       lv_corpnum type String,
       lv_mgtkey type String,
-      lv_memo type string,
+      lv_url type String,
       lv_result TYPE ZPOPBILL=>S_POPBILL_RESULT.
 
-* 회원 사업자번호
+* 확인할 회원 사업자번호
 lv_corpnum = '6798700433'.
-* 발행취소할 현금영수증 관리번호
-lv_mgtkey = '12345'.
-* 발행취소시 메모.
-lv_memo = '발행취소 메모'.
+* 확인할 현금영수증 관리번호.
+lv_mgtkey = '20190819-002'.
 
-
-CALL METHOD lo_popbill_cashbill->CancelIssue
+CALL METHOD lo_popbill_hometax->GetMailURL
   EXPORTING
-    p_corpNum  = lv_corpnum
+    p_corpNum = lv_corpnum
     p_mgtkey = lv_mgtkey
-    p_memo = lv_memo
   IMPORTING
-    p_result   = lv_result.
-
+    p_url = lv_url
+    p_result  = lv_result.
+write: /
+      'URL',
+      lv_url.
 write: /
       'RESULT Code',
       lv_result-code.
 write: /
-      'RESULT Message',
+      'RERSULT Message',
       lv_result-message.

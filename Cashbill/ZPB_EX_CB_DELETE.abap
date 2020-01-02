@@ -1,13 +1,16 @@
 ﻿*&---------------------------------------------------------------------*
-*& Report  ZPB_EX_CB_CANCELISSUE
+*& Report  ZPB_EX_CB_DELETE
 *&
 *&---------------------------------------------------------------------*
 *&
-*& 현금영수증 발행취소. 국세청 전송전까지 가능.
+*& 발행취소된 현금영수증 삭제. 관리번호 재사용을 위해서는 취소된 건을 삭제해야 가능함.
 *&
 *&---------------------------------------------------------------------*
 
-REPORT  ZPB_EX_CB_CANCELISSUE.
+REPORT  ZPB_EX_CB_DELETE.
+
+
+
 
 DATA: lo_popbill_cashbill TYPE REF TO ZPOPBILL_CASHBILL.
 
@@ -27,17 +30,14 @@ DATA:
 
 * 회원 사업자번호
 lv_corpnum = '6798700433'.
-* 발행취소할 현금영수증 관리번호
+* 삭제할 현금영수증 관리번호
 lv_mgtkey = '12345'.
-* 발행취소시 메모.
-lv_memo = '발행취소 메모'.
 
 
-CALL METHOD lo_popbill_cashbill->CancelIssue
+CALL METHOD lo_popbill_cashbill->Delete
   EXPORTING
     p_corpNum  = lv_corpnum
     p_mgtkey = lv_mgtkey
-    p_memo = lv_memo
   IMPORTING
     p_result   = lv_result.
 
