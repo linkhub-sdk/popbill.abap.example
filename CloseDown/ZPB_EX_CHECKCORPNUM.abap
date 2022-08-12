@@ -46,7 +46,7 @@ write: /
 write: /
       'STATE : ',
       lv_corpstate-corpnum,
-      lv_corpstate-type,
+      lv_corpstate-taxType,
       lv_corpstate-state,
       lv_corpstate-stateDate,
       lv_corpstate-checkDate.
