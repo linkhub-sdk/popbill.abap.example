@@ -73,6 +73,8 @@ loop at lv_taxinvoice_info_list into lv_taxinvoice_info.
       'invoiceeCorpName : ' , lv_taxinvoice_info-invoiceeCorpName,/,
       'invoiceeMgtKey : ' , lv_taxinvoice_info-invoiceeMgtKey,/,
       'invoiceePrintYN : ' , lv_taxinvoice_info-invoiceePrintYN,/,
+      'closeDownState : ' , lv_taxinvoice_info-closeDownState,/,
+      'closeDownStateDate : ' , lv_taxinvoice_info-closeDownStateDate,/,
       'trusteeCorpNum : ' , lv_taxinvoice_info-trusteeCorpNum,/,
       'trusteeCorpName : ' , lv_taxinvoice_info-trusteeCorpName,/,
       'trusteeMgtKey : ' , lv_taxinvoice_info-trusteeMgtKey,/,
